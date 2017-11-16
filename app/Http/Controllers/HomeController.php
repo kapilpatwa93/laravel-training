@@ -52,7 +52,7 @@ class HomeController extends Controller
             $user = new User();
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
-            $user->email = $request->email;
+            $user->email = strtolower($request->email);
             $user->password = Hash::make($request->password);
             if ($user->save()) {
                 $request->session()->flash('register_success', 'User Registered Successfully!!');
