@@ -141,9 +141,18 @@
     <div class="row main">
 
         <div class="main-login main-center">
-            <h5>Sign up once and watch any of our free demos.</h5>
+            <h3>Task Manager Registration</h3>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form class="" method="post" action="{{route('do_register')}}">
-
+                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="name" class="cols-sm-2 control-label">First Name</label>
                     <div class="cols-sm-10">
@@ -164,7 +173,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                    <label for="email" class="cols-sm-2 control-label"> Email</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
@@ -208,6 +217,27 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $('document').ready(function(){
+        $('#email').on('blur',function(){
+            
+            $.ajax({
+                url:"{{route('email.check')}}",
+                method:"POST", //First change type to method here
+                data:{
+                email: $(this).val(), // Second add quotes on the value.
+                },
+                success:function(response) {
+                    if(response.success == true){
 
+                    }
+                },
+                error:function(){
+                
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

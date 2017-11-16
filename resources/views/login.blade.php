@@ -62,6 +62,7 @@
         margin: 0 auto;
         max-width: 330px;
         padding: 40px 40px;
+        background : #009edf
 
     }
 
@@ -84,7 +85,7 @@
 
     <!-- Website Font style -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
+    
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
@@ -96,13 +97,28 @@
     <div class="row main">
 
         <div class="main-login main-center">
-            <h5>Sign up once and watch any of our free demos.</h5>
-            <form class="" method="post" action="{{route('do_register')}}">
+            <h3>Task Manager Login</h3>
+            @if(Session::get('register_success'))
+                <div class="alert alert-success">
+                    {{@Session::get('register_success')}}
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
+            <form class="" method="post" action="{{route('do_login')}}">
 
 
-
+                {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                    <label for="email" class="cols-sm-2 control-label">Email</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
