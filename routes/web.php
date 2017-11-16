@@ -22,3 +22,8 @@ Route::post('/register',['as'=>'do_register','uses'=>'HomeController@doRegister'
 
 Route::get('/login',['as'=>'show_login','uses'=>'HomeController@showLogin']);
 Route::post('/login',['as'=>'do_login','uses'=>'HomeController@doLogin']);
+
+
+Route::get('/create', function () {
+    return view('todo.create');
+});
