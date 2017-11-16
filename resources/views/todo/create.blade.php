@@ -1,35 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">  
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+@extends('todo.master')
+    @section('title', 'Create Todo')
 
-</head>
-<body>
-<div class="container">
-  <h2>Add ToDo</h2>
-  <div class="panel-group">
-    <div class="panel panel-default">
-      <div class="panel-heading">Panel with panel-default class</div>
-      <div class="container">
-    <div class="login-container">
-            <div id="output"></div>
-            <div class="avatar"></div>
-            <div class="form-box">
-                <form action="" method="">
-                    <input name="user" type="text" placeholder="username">
-                    <input type="password" placeholder="password">
-                    <button class="btn btn-info btn-block login" type="submit">Login</button>
-                </form>
+@section('content')
+
+   
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading text-center">Create a ToDo</div>
+          <div class="container">
+                <div class="login-container">
+                        <div id="output"></div>
+                    <div class="form-box">
+                        <form>
+                          <div class="form-group">
+                            <label for="formGroupExampleInput">Title</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Title">
+                          </div>
+                          <div class="form-group">
+                            
+                            <label for="formGroupExampleInput2">Description</label>
+                            <textarea class="form-control" id="formGroupExampleInput2" placeholder="Description" rows="3"></textarea> 
+                          </div>
+                            <button type="button" class="btn btn-success">Create</button>
+                        </form>
+                    </div>
+                </div>        
             </div>
         </div>
-        
-</div>
-    </div>
-  </div>
-</div>
+      </div>
+    
 
-</body>
-</html>
+@endsection
