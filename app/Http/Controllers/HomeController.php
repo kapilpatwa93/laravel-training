@@ -74,37 +74,35 @@ class HomeController extends Controller
         try{
             return view('login');
         }catch(\Exception $ex){
-            dd($ex);
         }
 
     }
-
+    
     public function doLogin(Request $request)
     {
         try{
-
             $validator = $this->validate($request,[
                 'email'=>'required|email|max:255',
                 'password'=>'required|max:255'
             ]);
 
             if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
-                return response()->redirectToRoute('task.index');
+            
+                return response()->redirectToRoute('home');
             }else{
-
+            
                 return back()->withErrors(['login_failed'=>'Invalid Credentials!! Please try again.']);
             }
             
 
         }catch(\Exception $ex){
-
-            return back();//->withError(['general_error'=>'Something went wrong! Please try again']);
+           
+            return back();
         }
 
     }
     public function logout(Request $request){
         Auth::logout();
-
         return redirect()->route('show_login');
     }
     public function home(Request $request){

@@ -1,13 +1,13 @@
 
 @extends('task.master')
-    @section('title', 'Create Todo')
+    @section('title', 'Create Task')
 
 @section('content')
 
    
       <div class="panel-group">
         <div class="panel panel-default">
-          <div class="panel-heading text-center">Create a ToDo</div>
+          <div class="panel-heading text-center"><h2>Create task</h2></div>
           <div class="container">
                 <div class="login-container">
                         <div id="output"></div>

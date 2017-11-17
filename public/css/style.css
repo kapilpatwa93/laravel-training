@@ -68,7 +68,7 @@ html,body{
     text-align: center;
     height:40px;
     border: 1px solid #ccc;;
-    background: #fafafa;
+    
     transition:0.2s ease-in-out;
 
 }
@@ -80,7 +80,7 @@ html,body{
 
 .form-box input[type="text"]{
     border-radius: 5px 5px 0 0;
-    text-transform: lowercase;
+    
 }
 
 .form-box input[type="password"]{

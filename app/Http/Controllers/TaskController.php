@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
@@ -16,6 +17,7 @@ class TaskController extends Controller
     public function index()
     {
         try{
+            
             $tasks = Task::where('user_id','=',Auth::user()->id)->get();
 
             return view('task.list',['tasks'=>$tasks]);
@@ -50,11 +52,13 @@ class TaskController extends Controller
     {
         try{
 
-
-            $validate = $this->validate($request,[
+            $validator = \Validator::make($request->all(),[
                 'name'=>'required|max:255',
                 'description'=>'required'
             ]);
+            if($validator->fails()){
+                return back()->withErrors($validator->errors());
+            }
             $task = new Task();
             $task->name = $request->name;
             $task->user_id = Auth::user()->id;
@@ -69,8 +73,8 @@ class TaskController extends Controller
 
             }
         }catch(\Exception $ex){
-
-            return back();//->withErrors(['general_error'=>'Something Went Wrong!!']);
+            
+            return back()->withErrors(['general_error'=>'Something Went Wrong!!']);
         }
     }
 
@@ -87,8 +91,8 @@ class TaskController extends Controller
             return view('task.edit',['task'=>$task]);
 
         }catch(\Exception $ex){
-            dd($ex);
-            return back()->withErrors(['task_find_error','Something went wrong!']);
+           
+            return back()->withErrors(['task_find_error','Something went wrong!!']);
         }
         //
     }
@@ -117,12 +121,15 @@ class TaskController extends Controller
     public function edit($id)
     {
         try{
-            $task = Task::findOrFail($id);
+            $task = Task::find($id);
+            if(!$task){
+                return back()->withErrors(['task_find_error'=>'Cannot find task!']);
+            }
             return view('task.edit',['task'=>$task]);
 
         }catch(\Exception $ex){
-            dd($ex);
-            return back()->withErrors(['task_find_error','Something went wrong!']);
+           
+            return back()->withErrors(['general_error'=>'Something went wrong!!!']);
         }
     }
 
@@ -137,12 +144,13 @@ class TaskController extends Controller
     {
 
         try {
-            $validate = $this->validate($request,[
-                'name' => 'required|max:255',
-                'description' => 'required'
-
+            $validator = \Validator::make($request->all(),[
+                'name'=>'required|max:255',
+                'description'=>'required'
             ]);
-
+            if($validator->fails()){
+                return back()->withErrors($validator->errors());
+            }
 
             $task = Task::where('id','=',$id)
                         ->update(['name'=>$request->name,'description'=>$request->description]);
