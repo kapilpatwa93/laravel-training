@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class Guest
 {
@@ -15,11 +16,12 @@ class Guest
      */
     public function handle($request, Closure $next)
     {
-        if(\Illuminate\Support\Facades\Auth::check()){
-            return response()->redirectToRoute('home');
-            
+        if(Auth::check()){
+
+            return response()->redirectToRoute('task.index');
         }else{
-            return response()->redirectToRoute('show_login');
+            return $next($request);
+            //return response()->redirectToRoute('show_login');
         }
     }
 }

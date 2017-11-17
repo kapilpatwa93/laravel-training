@@ -19,7 +19,14 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/register',['as'=>'do_register','uses'=>'HomeController@doRegister']);
 
     Route::get('/login',['as'=>'show_login','uses'=>'HomeController@showLogin']);
-    Route::post('/login',['as'=>'do_login','uses'=>'HomeController@doLogin']);    
+    Route::post('/login',['as'=>'do_login','uses'=>'HomeController@doLogin']);
+
+
+});
+Route::group(['middleware'=>'login'],function (){
+    Route::resource('task','TaskController');
+    Route::get('/logout',['as'=>'logout','uses'=>'HomeController@logout']);
+    Route::get('/task/{task}/delete',['as'=>'task.delete','uses'=>'TaskController@delete']);
 });
 
 Route::get('/create', function () {
@@ -29,3 +36,4 @@ Route::get('/create', function () {
 Route::get('/list', function () {
     return view('todo.list');
 });
+
